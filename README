@@ -1,0 +1,5 @@
+So, Builder seems to have the most complete implementation of BlankSlate, short of Ruby 1.9's BasicObject. The problem is, this is part of Builder, and still inside the Builder gem.
+
+It's especially frustrating, because the Builder source (lib/builder/blankslate.rb) seems to acknowledge that there should be a separate gem. But the only reference I can find refers to onestepback.org's gem repository, which isn't working.
+
+So I built my own. I'll try to keep it up to date with Builder. The first three parts of the version number are the Builder version; the last part is my revision.
