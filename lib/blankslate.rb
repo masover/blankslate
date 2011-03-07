@@ -20,7 +20,8 @@ class BlankSlate
     # Hide the method named +name+ in the BlankSlate class.  Don't
     # hide +instance_eval+ or any method beginning with "__".
     def hide(name)
-      if instance_methods.include?(name.to_s) and
+      methods = instance_methods.map(&:to_sym)
+      if methods.include?(name.to_sym) and
         name !~ /^(__|instance_eval)/
         @hidden_methods ||= {}
         @hidden_methods[name.to_sym] = instance_method(name)
