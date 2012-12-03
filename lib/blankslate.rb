@@ -22,7 +22,9 @@ class BlankSlate
     def hide(name)
       methods = instance_methods.map(&:to_sym)
       if methods.include?(name.to_sym) and
+        v, $VERBOSE = $VERBOSE, nil
         name !~ /^(__|instance_eval)/
+        $VERBOSE = v
         @hidden_methods ||= {}
         @hidden_methods[name.to_sym] = instance_method(name)
         undef_method name
