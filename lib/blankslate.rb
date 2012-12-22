@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 #--
 # Copyright 2004, 2006 by Jim Weirich (jim@weirichhouse.org).
 # All rights reserved.
@@ -8,6 +7,30 @@
 # above copyright notice is included.
 #++
 
+class String
+  if instance_methods.first.is_a?(Symbol)
+    def _blankslate_as_name
+      to_sym
+    end
+  else
+    def _blankslate_as_name
+      self
+    end
+  end
+end
+
+class Symbol
+  if instance_methods.first.is_a?(Symbol)
+    def _blankslate_as_name
+      self
+    end
+  else
+    def _blankslate_as_name
+      to_s
+    end
+  end
+end
+
 ######################################################################
 # BlankSlate provides an abstract base class with no predefined
 # methods (except for <tt>\_\_send__</tt> and <tt>\_\_id__</tt>).
@@ -16,13 +39,12 @@
 #
 class BlankSlate
   class << self
-    
+
     # Hide the method named +name+ in the BlankSlate class.  Don't
     # hide +instance_eval+ or any method beginning with "__".
     def hide(name)
-      methods = instance_methods.map(&:to_sym)
-      if methods.include?(name.to_sym) and
-        name !~ /^(__|instance_eval)/
+      if instance_methods.include?(name._blankslate_as_name) and
+        name !~ /^(__|instance_eval$)/
         @hidden_methods ||= {}
         @hidden_methods[name.to_sym] = instance_method(name)
         undef_method name
@@ -42,7 +64,7 @@ class BlankSlate
       define_method(name, hidden_method)
     end
   end
-  
+
   instance_methods.each { |m| hide(m) }
 end
 
