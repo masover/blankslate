@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 #--
 # Portions copyright 2004 by Jim Weirich (jim@weirichhouse.org).
 # Portions copyright 2005 by Sam Ruby (rubys@intertwingly.net).
