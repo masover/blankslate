@@ -6,4 +6,5 @@ Gem::Specification.new do |s|
   s.email = 'dave@3mix.com'
   s.authors = ['Jim Weirich', 'David Masover', 'Jack Danger Canty']
   s.files = ['README', 'lib/blankslate.rb']
+  s.license = "MIT"
 end
