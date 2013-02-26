@@ -16,17 +16,19 @@
 #
 class BlankSlate
   class << self
-    
+
     # Hide the method named +name+ in the BlankSlate class.  Don't
     # hide +instance_eval+ or any method beginning with "__".
     def hide(name)
       methods = instance_methods.map(&:to_sym)
+      v, $VERBOSE = $VERBOSE, nil
       if methods.include?(name.to_sym) and
         name !~ /^(__|instance_eval)/
         @hidden_methods ||= {}
         @hidden_methods[name.to_sym] = instance_method(name)
         undef_method name
       end
+      $VERBOSE = v
     end
 
     def find_hidden_method(name)
@@ -42,7 +44,7 @@ class BlankSlate
       define_method(name, hidden_method)
     end
   end
-  
+
   instance_methods.each { |m| hide(m) }
 end
 
